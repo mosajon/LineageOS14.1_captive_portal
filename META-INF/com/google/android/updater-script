@@ -1,0 +1,16 @@
+show_progress(1.000000, 0);
+set_progress(0.100000);
+ui_print("Flashing LineageOS14.1 settings_global.xml");
+ui_print("Modified by Mosajon(2017/09/17)");
+ifelse(is_mounted("/system"), unmount("/system"));
+mount("ext4", "EMMC", "/dev/block/platform/dw_mmc.0/by-name/SYSTEM", "/system", "");
+package_extract_file("telecompatch.sh", "/tmp/telecompatch.sh");
+set_metadata_recursive("/tmp/telecompatch.sh", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0755);
+run_program("/tmp/telecompatch.sh");
+delete("/tmp/telecompatch.sh");
+unmount("/system");
+show_progress(1.000000, 0);
+ui_print("Done");
+ui_print("");
+ui_print("Reboot now");
+set_progress(1.000000);
